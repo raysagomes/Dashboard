@@ -14,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 
+
+
 app.get("/opcua/dados", async (req, res) => {
 
   const response = await axios.get("http://localhost:1880/opcua/dados");
@@ -68,7 +70,6 @@ app.get("/producao/porcentagem/:id", (req, res) => {
     });
   });
 });
-
 app.post("/api/sendData", (req, res) => {
   const { production_quantity, length_consumo, consumo_mp } = req.body;
 
@@ -80,7 +81,7 @@ app.post("/api/sendData", (req, res) => {
   }
 
   const query = `INSERT INTO production_data (production_quantity, length_consumo, consumo_mp)
-                 VALUES (?, ?, ?`;
+                 VALUES (?, ?, ?)`;
 
   db.query(query, [production_quantity, length_consumo, consumo_mp], (err, result) => {
     if (err) {
@@ -90,8 +91,6 @@ app.post("/api/sendData", (req, res) => {
     res.status(200).json({ success: true, message: "Dados salvos com sucesso!" });
   });
 });
-
-
 
 async function buscarModosDeOperacao() {
 

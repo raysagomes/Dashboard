@@ -13,6 +13,7 @@ function Dashboard() {
   const [orders, setOrders] = useState([]);
   const [selectedOrderId, setSelectedOrderId] = useState("");
   const [alertMessage, setAlertMessage] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     fetchOrders();
@@ -58,6 +59,8 @@ function Dashboard() {
         ]);
         clearForm();
         fetchOrders();
+        setMessage("Ordem Cadastrada com Sucesso");
+        setTimeout(() => setMessage(null), 5000);
       }
     } catch (error) {
       console.error("Erro ao salvar os dados:", error);
@@ -130,8 +133,9 @@ function Dashboard() {
             <button onClick={() => setAlertMessage(null)} className='bota-fechar-alerta'><IoIosCloseCircle style={{ width: '40px', height: '40px' }} /></button>
           </div>
         )}
-      </div>
+        {message && <Alert className="mt-3">{message}</Alert>}
 
+      </div>
 
 
     </div>

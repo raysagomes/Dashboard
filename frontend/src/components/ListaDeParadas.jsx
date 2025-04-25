@@ -50,7 +50,7 @@ const ListaDeParadas = () => {
                     <IoReload style={{ width: '50px', height: '50px' }} className="icon-refresh" />
                 </Button>
             </h3>
-            <Table className='table-no-border' hover>
+            <Table className='table-parada' hover='true'>
                 <thead>
                     <tr>
                         <th>ID da parada</th>
@@ -60,13 +60,11 @@ const ListaDeParadas = () => {
                 </thead>
                 <tbody>
                     {displayedOrdens.map((parada) => (
-                        <div className='linha-tabela'>
-                            <tr key={parada.id}>
-                                <td>{parada.id}</td>
-                                <td>{formatDate(parada.horario_inicio)}</td>
-                                <td>{formatDate(parada.horario_fim)}</td>
-                            </tr>
-                        </div>
+                        <tr key={parada.id} className='linha-tabela-paradas'>
+                            <td className='coluna-parada'>{parada.id}</td>
+                            <td className='coluna-parada'>{formatDate(parada.horario_inicio)}</td>
+                            <td className='coluna-parada'>{formatDate(parada.horario_fim)}</td>
+                        </tr>
                     ))}
                 </tbody>
             </Table>
