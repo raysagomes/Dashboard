@@ -6,7 +6,7 @@ import Sidebar from '../components/SideBar';
 import { Navbar, Container, Row, Col } from "react-bootstrap";
 import '../styles/OrdensSalvas.css'
 import Footer from '../components/Footer';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 function Ordens() {
     return (
@@ -16,18 +16,18 @@ function Ordens() {
             </Helmet>
 
             <Row className='row'>
-                <Col xs={2} id="sidebar-wrapper">      
+                <Col xs={2} id="sidebar-wrapper">
                     <Sidebar />
                 </Col>
                 <Col className='header-width'>
                     <Navbar className="Header">
                         <Container>
-                            <h1 className='h1-titulo'> Ordens Salvas </h1> 
+                            <h1 className='h1-titulo'> Ordens Salvas </h1>
                         </Container>
                     </Navbar>
                     <Row>
-                        <Col className="col-ordens"> 
-                            <ListaTabela /> 
+                        <Col className="col-ordens">
+                            <ListaTabela />
                         </Col>
                     </Row>
                 </Col>

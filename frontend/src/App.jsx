@@ -10,16 +10,16 @@ import Reports from './pages/Reports';
 function App() {
     return (
         <Router>
-<Routes>
-<Route path="/" element={<Home />} />
- <Route path="/ordens" element={<Ordens />} />
- <Route path="/cadastrarOrdem" element={<CadastrarOrdem />} />
- <Route path="/enviarOrdem" element={<EnviarOrdem />} />
- <Route path="/reports" element={<Reports />} />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/ordens" element={<Ordens />} />
+                <Route path="/cadastrarOrdem" element={<CadastrarOrdem />} />
+                <Route path="/enviarOrdem" element={<EnviarOrdem />} />
+                <Route path="/reports" element={<Reports />} />
 
-</Routes>
+            </Routes>
 
-</Router>
+        </Router>
     );
 
 }

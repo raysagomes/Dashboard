@@ -6,7 +6,7 @@ import { Navbar, Container, Row, Col } from "react-bootstrap";
 import CardResumo from '../components/CardResumo';
 import '../styles/CadastrarOrdem.css'
 import Footer from '../components/Footer';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 function CadastrarOrdem() {
     return (
@@ -15,17 +15,17 @@ function CadastrarOrdem() {
                 <title>Cadastrar</title>
             </Helmet>
             <Row className='row'>
-            <Col xs={2} id="sidebar-wrapper">      
+                <Col xs={2} id="sidebar-wrapper">
                     <Sidebar />
                 </Col>
                 <Col className='header-width'>
                     <Navbar className="Header">
                         <Container>
-                            <h1 className='h1-titulo'> Cadastrar Ordens </h1> 
+                            <h1 className='h1-titulo'> Cadastrar Ordens </h1>
                         </Container>
                     </Navbar>
                     <Row>
-                        <Col> 
+                        <Col>
                             <Dashboard />
                             <CardResumo />
                         </Col>

@@ -3,10 +3,10 @@ import { Container, Table, Button } from 'react-bootstrap';
 import { MdOutlineNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { IoReload } from "react-icons/io5";
 
-const ListaDeParadas = () => { 
+const ListaDeParadas = () => {
     const [paradas, setParadas] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 8; 
+    const itemsPerPage = 8;
 
     const buscarDados = () => {
         fetch("http://localhost:5000/api/getDadosDeParada")
@@ -16,7 +16,7 @@ const ListaDeParadas = () => {
     };
 
     useEffect(() => {
-        buscarDados(); 
+        buscarDados();
     }, []);
 
     const handlePageChange = (direction) => {
@@ -28,10 +28,10 @@ const ListaDeParadas = () => {
     };
 
     const formatDate = (dateString) => {
-        if (!dateString) return 'Não disponível'; // Verifica se a data está vazia
+        if (!dateString) return 'Não disponível';
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Janeiro é 0
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -43,12 +43,12 @@ const ListaDeParadas = () => {
     const displayedOrdens = paradas.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     return (
-        <Container className='dados-enviados'> 
+        <Container className='dados-enviados'>
             <h3 className="card-titlee">
                 Paradas
-                <Button onClick={buscarDados} variant='none'> 
-                    <IoReload style={{ width: '50px', height: '50px' }} className="icon-refresh"/> 
-                </Button> 
+                <Button onClick={buscarDados} variant='none'>
+                    <IoReload style={{ width: '50px', height: '50px' }} className="icon-refresh" />
+                </Button>
             </h3>
             <Table className='table-no-border' hover>
                 <thead>
@@ -60,11 +60,13 @@ const ListaDeParadas = () => {
                 </thead>
                 <tbody>
                     {displayedOrdens.map((parada) => (
-                        <tr key={parada.id} className='linha-tabela'>
-                            <td>{parada.id}</td>                            
-                            <td>{formatDate(parada.horario_inicio)}</td>
-                            <td>{formatDate(parada.horario_fim)}</td>
-                        </tr>
+                        <div className='linha-tabela'>
+                            <tr key={parada.id}>
+                                <td>{parada.id}</td>
+                                <td>{formatDate(parada.horario_inicio)}</td>
+                                <td>{formatDate(parada.horario_fim)}</td>
+                            </tr>
+                        </div>
                     ))}
                 </tbody>
             </Table>

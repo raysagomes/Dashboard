@@ -6,16 +6,16 @@ import { IoIosCloseCircle } from "react-icons/io";
 function Dashboard() {
   const [productionQuantity, setProductionQuantity] = useState(0);
   const [lengthConsumo, setLengthConsumo] = useState(0.0);
-  const [productionState, setProductionState] = useState(0); 
-  const [operationMode, setOperationMode] = useState(0); 
+  const [productionState, setProductionState] = useState(0);
+  const [operationMode, setOperationMode] = useState(0);
   const [storedData, setStoredData] = useState([]);
-  const [mpConsumptionData, setMpConsumptionData] = useState([]); 
-  const [orders, setOrders] = useState([]); 
-  const [selectedOrderId, setSelectedOrderId] = useState(""); 
+  const [mpConsumptionData, setMpConsumptionData] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [selectedOrderId, setSelectedOrderId] = useState("");
   const [alertMessage, setAlertMessage] = useState(null);
 
   useEffect(() => {
-    fetchOrders(); 
+    fetchOrders();
   }, []);
 
   const fetchOrders = async () => {
@@ -27,42 +27,42 @@ function Dashboard() {
     }
   };
 
- 
+
 
   const calculateMPConsumption = () => {
-    return (productionQuantity * lengthConsumo); 
+    return (productionQuantity * lengthConsumo);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const consumo_mp = calculateMPConsumption(); 
+    const consumo_mp = calculateMPConsumption();
 
     const data = {
       production_quantity: productionQuantity,
       length_consumo: lengthConsumo,
       production_state: productionState,
       operation_mode: operationMode,
-      consumo_mp: consumo_mp, 
+      consumo_mp: consumo_mp,
       refugo_quantity: 0,
       setup_quantity: 0,
     };
 
     try {
       const response = await axios.post("http://localhost:5000/api/sendData", data);
-      
+
       if (response.data.success) {
         setMpConsumptionData((prevData) => [
           ...prevData,
-          { time: new Date().toLocaleTimeString(), mp_consumption: consumo_mp } 
+          { time: new Date().toLocaleTimeString(), mp_consumption: consumo_mp }
         ]);
-        clearForm(); 
+        clearForm();
         fetchOrders();
       }
     } catch (error) {
       console.error("Erro ao salvar os dados:", error);
       setAlertMessage("Erro ao salvar os dados, certifique-se de que nenhum está vazio ou zerado");
-      setTimeout(() => setAlertMessage(null), 5000); 
+      setTimeout(() => setAlertMessage(null), 5000);
 
     }
   };
@@ -77,7 +77,7 @@ function Dashboard() {
       const response = await axios.get(`http://localhost:5000/api/unload/${selectedOrderId}`);
       if (response.data.success) {
         alert("Ordem deletada com sucesso!");
-        fetchOrders(); 
+        fetchOrders();
       }
     } catch (error) {
       console.error("Erro ao deletar a ordem:", error);
@@ -92,9 +92,9 @@ function Dashboard() {
   };
 
   return (
-    <div> 
+    <div>
 
-        
+
       <Container className="forms">
         <h2 className="my-4 h2-titulo">Cadastrar Ordem</h2>
         <Form onSubmit={handleSubmit}>
@@ -121,17 +121,17 @@ function Dashboard() {
             Cadastrar Ordem
           </Button>
         </Form>
-        </Container>
+      </Container>
 
-<div>
+      <div>
         {alertMessage && (
-            <div className="alert-card">
-                {alertMessage}
-                <button onClick={() => setAlertMessage(null)} className='bota-fechar-alerta'><IoIosCloseCircle style={{ width: '40px', height: '40px' }}/></button>
-            </div>
+          <div className="alert-card">
+            {alertMessage}
+            <button onClick={() => setAlertMessage(null)} className='bota-fechar-alerta'><IoIosCloseCircle style={{ width: '40px', height: '40px' }} /></button>
+          </div>
         )}
-         </div>
-       
+      </div>
+
 
 
     </div>

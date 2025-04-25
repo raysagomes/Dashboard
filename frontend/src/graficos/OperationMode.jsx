@@ -7,15 +7,15 @@ const OperationEstado = () => {
     const [productionState, setProductionState] = useState(0);
     const [labels, setLabels] = useState([]);
     const [dataPoints, setDataPoints] = useState([]);
-    const [lastOperationMode, setLastOperationMode] = useState(null); 
+    const [lastOperationMode, setLastOperationMode] = useState(null);
 
     useEffect(() => {
         async function carregarDados() {
             try {
-                const response = await axios.get("http://localhost:5000/api/dadosOperacao"); 
+                const response = await axios.get("http://localhost:5000/api/dadosOperacao");
                 const dados = response.data;
 
-                console.log("Dados retornados da API:", dados);
+                // console.log("Dados retornados da API:", dados);
 
                 if (Array.isArray(dados)) {
                     setLabels([]);
@@ -27,7 +27,7 @@ const OperationEstado = () => {
                         setDataPoints(prevData => [...prevData, dado.modo_operacao]);
                     });
 
-                    setProductionState(dados[dados.length - 1]?.modo_operacao); 
+                    setProductionState(dados[dados.length - 1]?.modo_operacao);
                 } else {
                     console.error("Os dados retornados não são um array:", dados);
                 }
@@ -38,16 +38,16 @@ const OperationEstado = () => {
         }
 
         carregarDados();
-        const intervalo = setInterval(carregarDados, 30000); 
+        const intervalo = setInterval(carregarDados, 30000);
 
         return () => clearInterval(intervalo);
-    }, []); 
+    }, []);
 
     const colorMap = {
-        0: 'red',    
-        1: 'green',  
-        2: 'blue',   
-        3: 'yellow' 
+        0: 'red',
+        1: 'green',
+        2: 'blue',
+        3: 'yellow'
     };
 
     const data = {
@@ -55,8 +55,8 @@ const OperationEstado = () => {
         datasets: [
             {
                 label: 'Estado da Operação',
-                data: dataPoints, 
-                backgroundColor: dataPoints.map(mode => colorMap[mode]), 
+                data: dataPoints,
+                backgroundColor: dataPoints.map(mode => colorMap[mode]),
             },
         ],
     };
@@ -79,8 +79,8 @@ const OperationEstado = () => {
     return (
         <Container className="graficoParadas">
             <h2 className="h3-titulo"> Modos de Operação do Dia</h2>
-            <Bar 
-                data={data} 
+            <Bar
+                data={data}
                 options={{
                     plugins: {
                         legend: {
@@ -98,10 +98,10 @@ const OperationEstado = () => {
                             }
                         }
                     }
-                }} 
+                }}
             />
         </Container>
-    );  
+    );
 };
 
 export default OperationEstado;

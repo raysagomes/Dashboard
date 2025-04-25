@@ -10,8 +10,8 @@ import { HiDocumentReport } from "react-icons/hi";
 
 const Sidebar = () => {
     return (
-        <Container className="navbar"> 
-            <Nav className="sidebar d-none d-md-flex"> 
+        <Container className="navbar">
+            <Nav className="sidebar d-none d-md-flex">
                 <div className="sidebar-sticky"></div>
                 <Nav.Item className="nav-item">
                     <Link to="/" className="nav-link">Inicio <FaHome /> </Link>
@@ -29,9 +29,9 @@ const Sidebar = () => {
                     <Link to="/reports" className="nav-link">Reports <HiDocumentReport />                    </Link>
                 </Nav.Item>
             </Nav>
-            
 
-            <Dropdown className="d-md-none dropdown-custom"> 
+
+            <Dropdown className="d-md-none dropdown-custom">
                 <DropdownButton id="dropdown-basic-button" title={<img src={toggleNobg} alt="Menu" style={{ width: '30px', height: '30px' }} />} variant="none">
                     <Dropdown.Item as={Link} to="/" className="dropdown-item">Inicio</Dropdown.Item>
                     <Dropdown.Item as={Link} to="/cadastrarOrdem" className="dropdown-item">Cadastrar Ordem</Dropdown.Item>

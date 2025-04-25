@@ -11,20 +11,20 @@ const CardEnvioOrdem = () => {
     const [ordemAtual, setOrdemAtual] = useState(null);
     const [ordensEnviadas, setOrdensEnviadas] = useState([]);
     const [alertMessage, setAlertMessage] = useState(null);
-    const[dadosOrdem, setDadosOrdem] =  useState(null);
-    const [dadosOPCUA, setDadosOPCUA] = useState({}); 
-     const[porcentagem, setPorcentagem] = useState(0);
-    const [consumoReal, setConsumoReal]  = useState(0);
-    const [produzido, setProduzido]  = useState(0);
-    const[operationMode, setOperationMode] = useState(0);
-    const[productionState, setProductionState] = useState(0);
+    const [dadosOrdem, setDadosOrdem] = useState(null);
+    const [dadosOPCUA, setDadosOPCUA] = useState({});
+    const [porcentagem, setPorcentagem] = useState(0);
+    const [consumoReal, setConsumoReal] = useState(0);
+    const [produzido, setProduzido] = useState(0);
+    const [operationMode, setOperationMode] = useState(0);
+    const [productionState, setProductionState] = useState(0);
 
-     useEffect(() => {
+    useEffect(() => {
         async function carregarDados() {
             try {
                 const getProductionStateString = (state) => {
-                    const ProductionStates = {    
-                        Idle: 0, 
+                    const ProductionStates = {
+                        Idle: 0,
                         Production: 1,
                         Setup: 5
                     };
@@ -40,7 +40,7 @@ const CardEnvioOrdem = () => {
                         Off: 0,
                         Automatic: 1,
                         Manual: 2,
-                        Setup: 3    
+                        Setup: 3
                     };
                     const modeMapping = Object.entries(OperationModeStates).reduce((acc, [key, value]) => {
                         acc[value] = key;
@@ -101,7 +101,7 @@ const CardEnvioOrdem = () => {
 
         return () => clearInterval(intervalo);
     }, []);
-    
+
 
 
     useEffect(() => {
@@ -121,7 +121,7 @@ const CardEnvioOrdem = () => {
                             pc_length: data[0].length_consumo
                         });
                     } else {
-                        setOrdemAtual(null); 
+                        setOrdemAtual(null);
                     }
                 })
                 .catch(error => console.error("Erro ao buscar a última ordem:", error));
@@ -135,7 +135,7 @@ const CardEnvioOrdem = () => {
         const intervalo = setInterval(buscarDados, 5000);
 
         return () => clearInterval(intervalo);
-    }, []); 
+    }, []);
 
     const enviarOrdem = () => {
 
@@ -160,42 +160,42 @@ const CardEnvioOrdem = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dadosParaEnviar)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 0) {
-                setAlertMessage("Já tem uma ordem em produção atualmente");
-                setTimeout(() => setAlertMessage(null), 5000);
-            } else if (data.success) {
-                setOrdensEnviadas(prev => [...prev, {
-                    ordem_id: ordem.id,
-                    production_quantity: ordem.production_quantity,
-                    length_consumo: ordem.length_consumo,
-                    consumo_mp: ordem.consumo_mp
-                }]);
-                setOrdemAtual({
-                    po_code: ordem.id,
-                    ordem_id: ordem.ordem_id,
-                    po_quantity: ordem.production_quantity,
-                    pc_length: ordem.length_consumo
-                });
-                setMessage("Ordem enviada com sucesso!");
-            }
-                 else if (data.status === 0) {
-                     setAlertMessage("Já tem uma ordem em produção atualmente");
-                     setTimeout(() => setAlertMessage(null), 5000);
-            } else {
-                setAlertMessage(data.message);
-                setAlertMessage("Já tem uma ordem em produção atualmente");
-                setTimeout(() => setAlertMessage(null), 5000);
-            }
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 0) {
+                    setAlertMessage("Já tem uma ordem em produção atualmente");
+                    setTimeout(() => setAlertMessage(null), 5000);
+                } else if (data.success) {
+                    setOrdensEnviadas(prev => [...prev, {
+                        ordem_id: ordem.id,
+                        production_quantity: ordem.production_quantity,
+                        length_consumo: ordem.length_consumo,
+                        consumo_mp: ordem.consumo_mp
+                    }]);
+                    setOrdemAtual({
+                        po_code: ordem.id,
+                        ordem_id: ordem.ordem_id,
+                        po_quantity: ordem.production_quantity,
+                        pc_length: ordem.length_consumo
+                    });
+                    setMessage("Ordem enviada com sucesso!");
+                }
+                else if (data.status === 0) {
+                    setAlertMessage("Já tem uma ordem em produção atualmente");
+                    setTimeout(() => setAlertMessage(null), 5000);
+                } else {
+                    setAlertMessage(data.message);
+                    setAlertMessage("Já tem uma ordem em produção atualmente");
+                    setTimeout(() => setAlertMessage(null), 5000);
+                }
 
 
-        })
-        .catch(error => {
-            console.error("Erro ao enviar ordem:", error);
-            setAlertMessage("Erro ao enviar ordem.");
-            setTimeout(() => setAlertMessage(null), 5000);
-        });
+            })
+            .catch(error => {
+                console.error("Erro ao enviar ordem:", error);
+                setAlertMessage("Erro ao enviar ordem.");
+                setTimeout(() => setAlertMessage(null), 5000);
+            });
     };
 
 
@@ -205,7 +205,7 @@ const CardEnvioOrdem = () => {
         console.log("Ordem selecionada:", id);
     };
 
-      
+
     const handleStopOrder = async () => {
         try {
             const responseOPCUA = await fetch("http://localhost:1880/opcua/dados");
@@ -213,52 +213,52 @@ const CardEnvioOrdem = () => {
 
             const production_quantity = dados.production_quantity?.value;
             const length_consumo = dados.length_consumo?.value;
-            const setup_quantity = dados.setup_quantity?.value; 
+            const setup_quantity = dados.setup_quantity?.value;
             const refugo_quantity = dados.refugo_quantity?.value;
             const operation_mode_state = dados.operation_mode_state?.value;
             const production_state = dados.production_state?.value;
-            
-          const response = await axios.get("http://localhost:5000/api/stopOrder");
-          setMessage(response.data.message);
-          setTimeout(() => setMessage(null), 5000);
-          setOrdemAtual(null);
-          localStorage.removeItem('ordemAtual');
-      
-          
-          console.log("Dados recebidos:", dados);
-            
-            const body = JSON.stringify({ 
-                production_quantity, 
-                length_consumo, 
-                setup_quantity, 
-                refugo_quantity 
+
+            const response = await axios.get("http://localhost:5000/api/stopOrder");
+            setMessage(response.data.message);
+            setTimeout(() => setMessage(null), 5000);
+            setOrdemAtual(null);
+            localStorage.removeItem('ordemAtual');
+
+
+            console.log("Dados recebidos:", dados);
+
+            const body = JSON.stringify({
+                production_quantity,
+                length_consumo,
+                setup_quantity,
+                refugo_quantity
             });
-          console.log("Corpo da requisição:", body);
-      
-          const respostaFinalizar = await fetch("http://localhost:5000/api/finalizar-ordem", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: body,
-          });
-          
-        
-          if (!respostaFinalizar.ok) {
-            const errorResponse = await respostaFinalizar.json();
-            console.error("Erro ao finalizar a ordem:", errorResponse);
-            setMessage("Erro ao finalizar a ordem.");
-            return;
-          }
-      
-          const resultado = await respostaFinalizar.json();
-          console.log("Resultado da finalização:", resultado);
-          setMessage(resultado.message);
+            console.log("Corpo da requisição:", body);
+
+            const respostaFinalizar = await fetch("http://localhost:5000/api/finalizar-ordem", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: body,
+            });
+
+
+            if (!respostaFinalizar.ok) {
+                const errorResponse = await respostaFinalizar.json();
+                console.error("Erro ao finalizar a ordem:", errorResponse);
+                setMessage("Erro ao finalizar a ordem.");
+                return;
+            }
+
+            const resultado = await respostaFinalizar.json();
+            console.log("Resultado da finalização:", resultado);
+            setMessage(resultado.message);
         } catch (error) {
-          console.error("Erro ao parar a ordem:", error);
-          setMessage("Erro ao parar a ordem.");
+            console.error("Erro ao parar a ordem:", error);
+            setMessage("Erro ao parar a ordem.");
         }
-      };
+    };
 
 
 
@@ -266,7 +266,7 @@ const CardEnvioOrdem = () => {
         <Container>
             <Container className='card-envio-ordem'>
                 <h2 className='h2-select'>Selecione uma Ordem de Produção para Enviar para O Servidor</h2>
-                <select onChange={handleOrdemChange } defaultValue="" className='select-envio-ordem '>
+                <select onChange={handleOrdemChange} defaultValue="" className='select-envio-ordem '>
                     <option value="" disabled>Escolha uma ordem</option>
                     {ordens.map(ordem => (
                         <option key={ordem.id} value={ordem.id} className='option-select'>
@@ -278,13 +278,13 @@ const CardEnvioOrdem = () => {
             </Container>
 
             <div>
-            {alertMessage && (
-            <div className="alert-card">
-                {alertMessage}
-                <button onClick={() => setAlertMessage(null)} className='bota-fechar-alerta'><IoIosCloseCircle style={{ width: '40px', height: '40px' }}/></button>
+                {alertMessage && (
+                    <div className="alert-card">
+                        {alertMessage}
+                        <button onClick={() => setAlertMessage(null)} className='bota-fechar-alerta'><IoIosCloseCircle style={{ width: '40px', height: '40px' }} /></button>
+                    </div>
+                )}
             </div>
-        )}
-         </div>
 
             <div className='parar-ordem'>
                 <button className='botao-parar' onClick={handleStopOrder}><h3> Parar Ordem Atual</h3></button>
@@ -292,44 +292,44 @@ const CardEnvioOrdem = () => {
             </div>
 
 
-        <Container className='operacao-atual'> 
-            <Card className='card-operacao'>
-    <Card.Body>
-        <Card.Title><h3>Operação Atual</h3></Card.Title>
-        <Card.Text>
-            Production State: {dadosOPCUA.productionStateString } <br />
-            Operation Mode: {dadosOPCUA.operationModeString}
-        </Card.Text>
-    </Card.Body>
-</Card>
-</Container>
+            <Container className='operacao-atual'>
+                <Card className='card-operacao'>
+                    <Card.Body>
+                        <Card.Title><h3>Operação Atual</h3></Card.Title>
+                        <Card.Text>
+                            Production State: {dadosOPCUA.productionStateString} <br />
+                            Operation Mode: {dadosOPCUA.operationModeString}
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </Container>
 
             <Container className='dados-enviados'>
                 <h3 className='card-titlee'>Ordem Atual</h3>
                 {ordemAtual && dadosOPCUA.operationModeString !== "Off" ? (
-        <Card className='mb-2'>
-            <Card.Body>
-                <Card.Title>Ordem {ordemAtual.po_code}</Card.Title>
-                <Card.Text>
-                    Ordem {ordemAtual.ordem_id}
-                    Quantidade: {ordemAtual.po_quantity} peças<br />
-                    Comprimento: {ordemAtual.pc_length} mm<br />
-                    <br />
-                    <strong>Status de produção:</strong><br />
-                    Produzido: {produzido} <br />
-                    Total esperado: {ordemAtual?.po_quantity || 0}<br />
-                    Porcentagem Produzida: {porcentagem} %<br />
-                    Consumo real de mp: {consumoReal}
-                </Card.Text>
-            </Card.Body>
-        </Card>
-    ) : (
-        <Card className='mb-2'>
-            <Card.Body>
-                <Card.Title>Nenhuma Ordem Sendo Produzida Atualmente</Card.Title>
-            </Card.Body>
-        </Card>
-    )}
+                    <Card className='mb-2'>
+                        <Card.Body>
+                            <Card.Title>Ordem {ordemAtual.po_code}</Card.Title>
+                            <Card.Text>
+                                Ordem {ordemAtual.ordem_id}
+                                Quantidade: {ordemAtual.po_quantity} peças<br />
+                                Comprimento: {ordemAtual.pc_length} mm<br />
+                                <br />
+                                <strong>Status de produção:</strong><br />
+                                Produzido: {produzido} <br />
+                                Total esperado: {ordemAtual?.po_quantity || 0}<br />
+                                Porcentagem Produzida: {porcentagem} %<br />
+                                Consumo real de mp: {consumoReal}
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                ) : (
+                    <Card className='mb-2'>
+                        <Card.Body>
+                            <Card.Title>Nenhuma Ordem Sendo Produzida Atualmente</Card.Title>
+                        </Card.Body>
+                    </Card>
+                )}
             </Container>
 
             <ListaOrdensEnviadas />

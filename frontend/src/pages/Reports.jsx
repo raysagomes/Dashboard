@@ -6,7 +6,7 @@ import Sidebar from '../components/SideBar';
 import { Navbar, Container, Row, Col } from "react-bootstrap";
 import '../styles/Graficos.css'
 import Footer from '../components/Footer';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import UltimoMes from '../graficos/UltimoMes';
 import OperationEstado from '../graficos/OperationMode';
 
@@ -18,32 +18,32 @@ function Reports() {
             </Helmet>
 
             <Row className='row'>
-                <Col xs={2} id="sidebar-wrapper">      
+                <Col xs={2} id="sidebar-wrapper">
                     <Sidebar />
                 </Col>
                 <Col className='header-width'>
                     <Navbar className="Header">
                         <Container>
-                            <h1 className='h1-titulo'> Reports </h1> 
+                            <h1 className='h1-titulo'> Reports </h1>
                         </Container>
                     </Navbar>
                     <Row>
-                        <Col className="Col-graficos"> 
+                        <Col className="Col-graficos">
                             <UltimoMes />
                         </Col>
                     </Row>
                     <Row>
-                        <Col className="Col-graficos"> 
+                        <Col className="Col-graficos">
                             <OperationEstado />
                         </Col>
                     </Row>
                     <Row>
-                        <Col className="Col-graficos"> 
-                        <ListaDeParadas/> 
+                        <Col className="Col-graficos">
+                            <ListaDeParadas />
                         </Col>
                     </Row>
 
-                   
+
                 </Col>
             </Row>
             <Footer />

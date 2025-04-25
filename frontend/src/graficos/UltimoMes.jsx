@@ -4,17 +4,17 @@ import axios from "axios";
 import { Container } from "react-bootstrap";
 
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-  } from 'chart.js';
-  
-  ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-  
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
 const UltimoMes = () => {
   const [chartData, setChartData] = useState({
     labels: [],
@@ -37,7 +37,7 @@ const UltimoMes = () => {
             return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
           });
 
-          const productionTotals = response.data.map(item => item.total_real_produzido || 0); 
+          const productionTotals = response.data.map(item => item.total_real_produzido || 0);
           const colors = [
             'rgba(75, 192, 192, 0.6)',
             'rgba(255, 99, 132, 0.6)',
@@ -47,9 +47,9 @@ const UltimoMes = () => {
             'rgba(153, 102, 255, 0.6)',
             'rgba(6, 255, 64, 0.6)',
           ];
-          
+
           const backgroundColors = productionTotals.map((_, index) => colors[index % colors.length]);
-          
+
           setChartData({
             labels: labels,
             datasets: [

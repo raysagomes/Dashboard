@@ -2,23 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { MdOutlineNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { IoReload } from "react-icons/io5";
+import { format } from 'date-fns';
 
-const ListaOrdensEnviadas = () => { 
+const ListaOrdensEnviadas = () => {
     const [ordensEnviadas, setOrdensEnviadas] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 8; 
+    const itemsPerPage = 8;
 
 
     const buscarDados = () => {
-      fetch("http://localhost:5000/api/ordens-enviadas")
-          .then(response => response.json())
-          .then(data => setOrdensEnviadas(data))
-          .catch(error => console.error("Erro ao buscar ordens enviadas:", error));
-  };
+        fetch("http://localhost:5000/api/ordens-enviadas")
+            .then(response => response.json())
+            .then(data => setOrdensEnviadas(data))
+            .catch(error => console.error("Erro ao buscar ordens enviadas:", error));
+    };
 
     useEffect(() => {
-       
-        buscarDados(); 
+
+        buscarDados();
     }, []);
 
     const handlePageChange = (direction) => {
@@ -32,19 +33,21 @@ const ListaOrdensEnviadas = () => {
     const displayedOrdens = ordensEnviadas.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     return (
-        <Container className='dados-enviados'> 
-            <h3 className="card-titlee">Ordens Enviadas  <Button onClick={buscarDados} variant='none'> <IoReload  style={{ width: '50px', height: '50px' }} className="icon-refresh"/> </Button> </h3>
-            <table className='table-no-border' hover="true">
+        <Container className='dados-enviados'>
+            <h3 className="card-titlee">Ordens Enviadas  <Button onClick={buscarDados} variant='none'> <IoReload style={{ width: '50px', height: '50px' }} className="icon-refresh" /> </Button> </h3>
+            <table className='tablee-no-border' >
                 <thead>
                     <tr>
                         <th>Ordem Enviada</th>
                         <th>ID da Ordem Enviada</th>
                         <th>Quantidade</th>
                         <th>Comprimento</th>
+                        <th>Data de Envio</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                {displayedOrdens.length > 0 ? (
+                    {displayedOrdens.length > 0 ? (
                         displayedOrdens.map((ordem, index) => (
                             <OverlayTrigger
                                 key={index}
@@ -61,11 +64,12 @@ const ListaOrdensEnviadas = () => {
                                 }
                             >
                                 <tr className='linha-tabela'>
-                                <td >{ordem.id}</td>
-                                   <td >{ordem.ordem_id}</td>
-                                    
+                                    <td >{ordem.id}</td>
+                                    <td >{ordem.ordem_id}</td>
+
                                     <td >{ordem.production_quantity} peças</td>
                                     <td >{ordem.length_consumo} mm</td>
+                                    <td>{format(new Date(ordem.data_envio), 'HH:mm:ss dd/MM/yyyy')} </td>
                                 </tr>
                             </OverlayTrigger>
                         ))
