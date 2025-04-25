@@ -1,0 +1,355 @@
+.main{
+    
+background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(204, 204, 204, 0.5));
+    margin: 0;
+    padding: 0;
+}
+
+.Header{
+    padding: 10px!important;
+    background-color: transparent;
+}
+.link-header{
+        display: flex; 
+        justify-content: flex-end !important; 
+
+}
+.h1-titulo {
+    color: black;
+    font-style: italic;
+    margin: 0;
+    text-decoration: none;
+}
+
+.icon-refresh{
+    color: white;
+    background-color: rgb(2, 2, 85);
+    padding: 10px;
+    border-radius: 40px;
+}
+.nav-link {
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.nav-item {
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+.nav-item-footer {
+    margin-top: 15px;
+}
+.link {
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container-link{
+    /* background-color: rgba(236, 236, 252, 0.25);; */
+    justify-items: center;
+    margin-top: 80px;
+    /* box-shadow: 5px 4px 5px 4px rgba(0, 0, 0, 0.349); */
+    margin-bottom: 40px;
+    margin-right: 30px;
+    border: 2px solid  rgb(0, 0, 0);
+    border-radius: 20px;
+}
+
+.h4-links{
+    padding-left: 10px;
+    padding-right: 10px
+}
+.h2-titulo{
+    color: white;
+}
+.inicio-link{
+    color:  rgb(0, 0, 0);
+    text-decoration: none;
+}
+.botao{
+    margin-top: 30px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 20 20 0 0px;
+    box-shadow: 5px 4px 5px 4px rgba(0, 0, 0, 0.5);
+}
+
+.botao:hover{
+    background-color: rgb(238, 238, 238);
+    color: black;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+.img-icon{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.grafico-mp {
+    background-color: white;
+    margin-top: 60px;
+    width: 80%;
+    margin-left: auto; 
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+
+.h3-titulo{
+    margin-bottom: 40px;
+    padding-top: 40px;
+}
+
+
+.sidebar {
+    position: relative; 
+    top: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 100%; 
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: rgb(0, 0, 70);
+    color: white;
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+}
+
+
+.navbar-custom{
+    display: none;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    display: block;
+    width: 80%; 
+    height: 0.1px;
+    position: absolute;
+    bottom: 0; 
+    left: 10%; 
+}
+.sidebar-sticky{
+    margin-top: 60px;
+}
+
+
+#sidebar-wrapper .sidebar-heading {
+    font-size: 1.2rem;
+    
+}
+
+.Col-geral{
+    margin: 0;
+}
+.Col-ordens{
+    justify-items: center;
+}
+.row {
+    --bs-gutter-x: 0;
+}
+.navbar{
+    --bs-gutter-x: 0;
+    margin-right: 0;
+    --bs-navbar-padding-y: 0;
+    }
+#sidebar-wrapper {
+    min-height: 100%; 
+    transition: margin .25s ease-out;
+    background-color: rgb(0, 0, 70);
+    height: 100vh;
+    width: 10%;
+    position: sticky;
+    overflow-y: auto; 
+    border-radius: 0 0 40px;
+}
+.dropdown-custom {
+    width: 100%;
+    min-width: 120px!important;  
+}
+
+.dropdown-custom .dropdown-menu {
+    .dropdown-custom .dropdown-menu {
+        width: 100%; 
+    }
+    
+}
+
+.dropdown-item {
+    padding: 20px; 
+    font-size: 16px; 
+    color: rgb(2, 2, 85); 
+    background-color: white;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.1); 
+}
+
+.footer-{
+    background-color: rgb(0, 0, 70)!important;
+    color: white;
+    margin-bottom: 0!important;
+    margin-top: 50px!important;
+}
+
+@media (max-width: 768px) {
+    #sidebar-wrapper {
+        min-width: 180px!important;
+        height: auto; 
+        display: block; 
+        background-color: transparent;
+        position: absolute;
+
+    }
+    #dropdown-basic-button{
+         background-color: rgb(37, 37, 37);        ;
+        margin-top: 70px;
+    }
+    .sidebar {
+        display: none; 
+      background-color: none;
+
+    }
+    .nav-item-footer{
+        margin-left: 10px;
+    }
+    .nav-link {
+        display: block; 
+        width: 100%; 
+    }
+    .container-link{
+       margin-top: 40px;
+       margin-right: 0;
+    }
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+    .grafico-mp{
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    
+}
+    .grafico{
+        width: 100%;
+    }
+.dropdown-item {
+    padding: 20px; 
+    font-size: 16px; 
+    color: rgb(2, 2, 85); 
+    background-color: white;
+    width: 150%!important; 
+
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.1); 
+}
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .dropdown-menu {
+        width: auto !important; 
+        min-width: 150px !important; 
+    }
+    .row {
+        --bs-gutter-x: 0;
+    }
+    #sidebar-wrapper {
+        height: auto; 
+        display: block; 
+        background-color: transparent;
+        position: relative;
+    }
+
+    .dropdown-toggle {
+        width: auto;  
+    }
+
+    .nav-link {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .container-link {
+        margin-top: 50px;
+    }
+       .sidebar {
+        display: none; 
+      background-color: none;
+
+    }
+    .grafico-mp{
+        width:100%;
+        margin-left: auto;
+        margin-right: auto;
+        justify-self: center;
+        
+    }
+        .grafico{
+            width: 100%;
+        }
+}
+
+@media (min-width: 1024px) and (max-width: 1200px) {
+    .dropdown-menu {
+        width: auto !important;
+        min-width: 180px !important;
+    }
+
+    .container-link {
+        margin-top: 70px;
+    }
+
+    .nav-link {
+        font-size: 18px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .grafico-mp {
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .navbar{
+        --bs-gutter-x: 0;
+        margin-right: 0;
+        --bs-navbar-padding-y: 0;
+        }
+}
+
+@media (min-width: 1200px) {
+    .dropdown-menu {
+        width: 200px !important;
+    }
+
+    .container-link {
+        margin-top: 80px;
+    }
+
+    .nav-link {
+        font-size: 20px;
+    }
+}

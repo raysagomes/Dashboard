@@ -1,0 +1,196 @@
+
+
+.card-envio-ordem{
+    margin-bottom: 40px;
+    margin-top: 50px;
+    padding: 60px!important;
+    background-color: rgb(255, 255, 255);
+    width: 60%;
+    padding: 20px;
+    border: 1px solid  rgb(0, 195, 255);
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.5);
+    justify-self: center;
+
+} 
+.parar-ordem{
+    justify-self: center;
+    margin-bottom: 40px;
+
+
+}
+.select-envio-ordem{
+    padding: 10px;
+    margin-right: 10px;
+}
+.alert-card {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bota-fechar-alerta{
+    background: transparent;
+    border: none;
+}
+.icon-fechar{
+    width: 20px;
+}
+.botao-parar{
+    margin-top: 30px;
+    background-color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+    border-radius: 120px!important;
+    border: 1px solid rgb(173, 0, 0);
+    padding: 20px;
+}
+
+.botao-enviar{
+    background-color: rgb(0, 0, 70);
+    color: rgb(255, 255, 255);
+    border-radius: 10px!important;
+    padding: 10px;
+}
+.card-titlee{
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.dados-enviados{
+    width: 80%;
+}
+.botao-anterior{
+    border: none;
+    border-radius: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+.botao-proximo{
+    border: none;
+    border-radius: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.table-no-border {
+    border: none;
+    --bs-table-bg: none;
+    --bs-table-hover-color:none;
+    border-spacing: 0;
+
+}
+.linha-tabela{
+    transition: transform 0.3s ease;
+}
+
+.table-no-border th,
+.table-no-border td {
+    border: none;
+    padding: 20px; 
+}
+
+.table-no-border tbody tr.linha-tabela:hover {
+    background-color: rgb(2, 2, 85) !important;
+    color: white !important;
+    transform: scale(1.1);
+
+
+}
+
+.botao-anterior:not(:disabled), .botao-proximo:not(:disabled) {
+    background-color: rgb(2, 2, 85);
+    cursor: pointer;
+
+}
+.botao-anterior:not(:disabled), .botao-proximo:not(:disabled) .icon-white {
+    color: white;
+}
+
+.botao-anterior:not(:disabled):hover, .botao-proximo:not(:disabled):hover {
+    background-color: rgb(0, 102, 204); 
+}
+
+.botao-anterior:disabled, .botao-proximo:disabled {
+    cursor: not-allowed; 
+    opacity: 0.5; 
+}
+.hover-details {
+    position: absolute;
+    top: 0;
+    left: 100%; 
+    margin-left: 10px; 
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: auto;
+    color: #555;
+  }
+  
+  .card-body:hover + .hover-details {
+    display: block;
+  }
+
+  .operacao-atual{
+    width: 40%;
+   
+  }
+  .card-operacao{
+    border: 1px solid  rgb(0, 195, 255);
+    text-align: center;
+    padding: 10px;
+
+}
+
+@media (max-width: 768px) {
+    #sidebar-wrapper {
+        width: 20%;
+        position: fixed; 
+        height: auto; 
+        display: block; 
+    }
+
+    .sidebar {
+        width: 100%; 
+        position: relative; 
+        height: auto; 
+    }
+
+    .nav-link {
+        display: block; 
+        width: 40%; 
+    }
+    .card-envio-ordem {
+        width: 90%;
+    }
+.h2-select{
+    width: 100%;
+}
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+    .grafico-mp{
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    
+}
+.select-envio-ordem {
+    width: 100%; 
+    margin-bottom: 20px;
+}
+
+.botao-enviar {
+    width: 100%; 
+    margin-top: 20px;
+}
+}
