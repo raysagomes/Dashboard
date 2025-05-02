@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, ListGroup, Card } from "react-bootstrap";
 import axios from "axios";
+import logger from '../logger';
 
 function CardResumo() {
 
@@ -21,6 +22,7 @@ function CardResumo() {
       }
     } catch (error) {
       console.error("Erro ao buscar a última ordem:", error);
+      logger.error("Erro ao buscar a última ordem cadastrada:", error);
     }
   };
 

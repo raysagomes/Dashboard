@@ -11,3 +11,8 @@
     margin-bottom: 60px;
 
 }
+
+
+.table>:not(caption)>*>*{
+padding: 20px;
+}

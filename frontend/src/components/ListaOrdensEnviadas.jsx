@@ -3,6 +3,7 @@ import { Container, Table, OverlayTrigger, Tooltip, Button } from 'react-bootstr
 import { MdOutlineNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { IoReload } from "react-icons/io5";
 import { format } from 'date-fns';
+import logger from '../logger';
 
 const ListaOrdensEnviadas = () => {
     const [ordensEnviadas, setOrdensEnviadas] = useState([]);
@@ -14,7 +15,11 @@ const ListaOrdensEnviadas = () => {
         fetch("http://localhost:5000/api/ordens-enviadas")
             .then(response => response.json())
             .then(data => setOrdensEnviadas(data))
-            .catch(error => console.error("Erro ao buscar ordens enviadas:", error));
+            .catch(error => {
+                console.error("Erro ao buscar ordens enviadas:", error);
+                logger.error("Erro ao buscar ordens enviadas:", error);
+            });
+
     };
 
     useEffect(() => {

@@ -11,6 +11,8 @@ import Footer from './components/Footer';
 import { Helmet } from "react-helmet";
 
 function App() {
+
+
     return (
         <div className='main'>
             <Helmet>

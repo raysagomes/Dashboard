@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Container, ListGroup, Alert } from "react-bootstrap";
 import axios from "axios";
 import { IoIosCloseCircle } from "react-icons/io";
+import logger from '../logger';
 
 function Dashboard() {
   const [productionQuantity, setProductionQuantity] = useState(0);
@@ -25,6 +26,7 @@ function Dashboard() {
       setOrders(response.data);
     } catch (error) {
       console.error("Erro ao buscar ordens:", error);
+      logger.error("Erro ao buscar ordens cadastradas:", error);
     }
   };
 
@@ -61,32 +63,18 @@ function Dashboard() {
         fetchOrders();
         setMessage("Ordem Cadastrada com Sucesso");
         setTimeout(() => setMessage(null), 5000);
+        logger.log("Ordem Cadastrada com Sucesso")
       }
     } catch (error) {
       console.error("Erro ao salvar os dados:", error);
+      logger.error("Erro ao salvar os dados:", error);
       setAlertMessage("Erro ao salvar os dados, certifique-se de que nenhum está vazio ou zerado");
       setTimeout(() => setAlertMessage(null), 5000);
 
     }
   };
 
-  const handleDeleteOrder = async () => {
-    if (!selectedOrderId) {
-      alert("Por favor, selecione uma ordem para deletar.");
-      return;
-    }
-
-    try {
-      const response = await axios.get(`http://localhost:5000/api/unload/${selectedOrderId}`);
-      if (response.data.success) {
-        alert("Ordem deletada com sucesso!");
-        fetchOrders();
-      }
-    } catch (error) {
-      console.error("Erro ao deletar a ordem:", error);
-    }
-  };
-
+  
   const clearForm = () => {
     setProductionQuantity(0);
     setLengthConsumo(0.0);

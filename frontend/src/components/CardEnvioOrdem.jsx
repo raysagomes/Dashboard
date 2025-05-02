@@ -3,6 +3,8 @@ import { Button, Alert, Container, Card } from 'react-bootstrap';
 import axios from "axios";
 import { IoIosCloseCircle } from "react-icons/io";
 import ListaOrdensEnviadas from './ListaOrdensEnviadas';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import logger from '../logger';
 
 const CardEnvioOrdem = () => {
     const [ordens, setOrdens] = useState([]);
@@ -93,6 +95,8 @@ const CardEnvioOrdem = () => {
                 }));
             } catch (error) {
                 console.error("Erro ao carregar os dados: ", error);
+                logger.error("Erro ao carregar os dados de modo de operação: ", error);
+
             }
         }
 
@@ -109,7 +113,10 @@ const CardEnvioOrdem = () => {
             fetch("http://localhost:5000/api/production-data")
                 .then(response => response.json())
                 .then(data => setOrdens(data))
-                .catch(error => console.error("Erro ao buscar ordens:", error));
+                .catch(error => {
+                    console.error("Erro ao buscar ordens:", error);
+                    logger.error(`Erro ao buscar ordens cadastradas: ${error.message}`);
+                });
 
             fetch("http://localhost:5000/api/getLastOrder")
                 .then(response => response.json())
@@ -124,12 +131,18 @@ const CardEnvioOrdem = () => {
                         setOrdemAtual(null);
                     }
                 })
-                .catch(error => console.error("Erro ao buscar a última ordem:", error));
+                .catch(error => {
+                    console.error("Erro ao buscar a ultima ordem enviada:", error);
+                    logger.error(`Erro ao buscar a ultima ordem enviada: ${error.message}`);
+                });
 
             fetch("http://localhost:5000/api/ordens-enviadas")
                 .then(response => response.json())
                 .then(data => setOrdensEnviadas(data))
-                .catch(error => console.error("Erro ao buscar ordens enviadas:", error));
+                .catch(error => {
+                    console.error("Erro ao buscar a ultima ordem enviada:", error);
+                    logger.error(`Erro ao buscar a ultima ordem enviada: ${error.message}`);
+                });
         };
         buscarDados();
         const intervalo = setInterval(buscarDados, 5000);
@@ -179,6 +192,7 @@ const CardEnvioOrdem = () => {
                         pc_length: ordem.length_consumo
                     });
                     setMessage("Ordem enviada com sucesso!");
+                    logger.info
                 }
                 else if (data.status === 0) {
                     setAlertMessage("Já tem uma ordem em produção atualmente");
@@ -203,6 +217,7 @@ const CardEnvioOrdem = () => {
         const id = e.target.value;
         setOrdemSelecionada(id);
         console.log("Ordem selecionada:", id);
+        logger.log("Ordem selecionada:", id);
     };
 
 
@@ -224,9 +239,6 @@ const CardEnvioOrdem = () => {
             setOrdemAtual(null);
             localStorage.removeItem('ordemAtual');
 
-
-            console.log("Dados recebidos:", dados);
-
             const body = JSON.stringify({
                 production_quantity,
                 length_consumo,
@@ -234,6 +246,7 @@ const CardEnvioOrdem = () => {
                 refugo_quantity
             });
             console.log("Corpo da requisição:", body);
+            logger.log("Corpo da requisição:", body);
 
             const respostaFinalizar = await fetch("http://localhost:5000/api/finalizar-ordem", {
                 method: "POST",
@@ -247,19 +260,22 @@ const CardEnvioOrdem = () => {
             if (!respostaFinalizar.ok) {
                 const errorResponse = await respostaFinalizar.json();
                 console.error("Erro ao finalizar a ordem:", errorResponse);
+                logger.error("Erro ao finalizar a ordem:", errorResponse);
+
                 setMessage("Erro ao finalizar a ordem.");
                 return;
             }
 
             const resultado = await respostaFinalizar.json();
             console.log("Resultado da finalização:", resultado);
+            logger.log("Resultado da finalização:", resultado);
             setMessage(resultado.message);
         } catch (error) {
             console.error("Erro ao parar a ordem:", error);
+            logger.error("Erro ao parar a ordem:", error);
             setMessage("Erro ao parar a ordem.");
         }
     };
-
 
 
     return (
@@ -318,8 +334,10 @@ const CardEnvioOrdem = () => {
                                 <strong>Status de produção:</strong><br />
                                 Produzido: {produzido} <br />
                                 Total esperado: {ordemAtual?.po_quantity || 0}<br />
-                                Porcentagem Produzida: {porcentagem} %<br />
-                                Consumo real de mp: {consumoReal}
+                                Consumo real de mp: {consumoReal}<br /> <br />
+                                Porcentagem Produzida: {porcentagem} %
+
+                                <ProgressBar animated now={porcentagem} className='progress-baar' />
                             </Card.Text>
                         </Card.Body>
                     </Card>

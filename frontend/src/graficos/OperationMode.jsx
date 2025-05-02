@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { Container } from "react-bootstrap";
+import logger from '../logger';
 
 const OperationEstado = () => {
     const [productionState, setProductionState] = useState(0);
@@ -15,7 +16,7 @@ const OperationEstado = () => {
                 const response = await axios.get("http://localhost:5000/api/dadosOperacao");
                 const dados = response.data;
 
-                // console.log("Dados retornados da API:", dados);
+                console.log("Dados retornados da API:", dados);
 
                 if (Array.isArray(dados)) {
                     setLabels([]);
@@ -30,10 +31,12 @@ const OperationEstado = () => {
                     setProductionState(dados[dados.length - 1]?.modo_operacao);
                 } else {
                     console.error("Os dados retornados não são um array:", dados);
+                    logger.error("Os dados retornados não são um array:", dados);
                 }
 
             } catch (error) {
                 console.error("Erro ao carregar os dados: ", error);
+                logger.error("Erro ao carregar os dados: ", error);
             }
         }
 

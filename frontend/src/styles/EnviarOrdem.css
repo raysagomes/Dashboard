@@ -126,7 +126,9 @@
     border-bottom-right-radius: 40px;
 
 }
-
+.progress-baar{
+    width: 60%;
+}
 .botao-anterior:not(:disabled),
 .botao-proximo:not(:disabled) {
     background-color: rgb(2, 2, 85);

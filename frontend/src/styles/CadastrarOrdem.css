@@ -25,7 +25,17 @@
     text-decoration: none;
     padding: 10px;
 }
-
+.alert-card {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .forms {
     border: 1px solid rgb(0, 0, 70);

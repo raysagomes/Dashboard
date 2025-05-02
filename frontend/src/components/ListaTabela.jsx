@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table, Pagination, Button } from 'react-bootstrap';
 import { IoReload } from "react-icons/io5";
 import { format } from 'date-fns';
+import logger from '../logger';
 
 function ListaTabela() {
   const [storedData, setStoredData] = useState([]);
@@ -17,6 +18,7 @@ function ListaTabela() {
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados:', error);
+        logger.error('Erro ao buscar os dados da tabela de cadastrados:', error);
       });
   }
   useEffect(() => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { Container } from "react-bootstrap";
+import logger from '../logger';
 
 import {
   Chart as ChartJS,
@@ -26,9 +27,7 @@ const UltimoMes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fazendo a chamada à API...");
         const response = await axios.get("http://localhost:5000/api/getProducoesUltimos30Dias");
-        console.log("Resposta da API:", response.data);
 
         if (Array.isArray(response.data)) {
           const labels = response.data.map(item => {
@@ -65,6 +64,7 @@ const UltimoMes = () => {
         }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
+        logger.error("Erro ao buscar dados:", error);
         setError("Erro ao carregar os dados.");
       } finally {
         setLoading(false);

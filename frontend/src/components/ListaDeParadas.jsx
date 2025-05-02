@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import { MdOutlineNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { IoReload } from "react-icons/io5";
+import logger from '../logger';
 
 const ListaDeParadas = () => {
     const [paradas, setParadas] = useState([]);
@@ -12,7 +13,11 @@ const ListaDeParadas = () => {
         fetch("http://localhost:5000/api/getDadosDeParada")
             .then(response => response.json())
             .then(data => setParadas(data))
-            .catch(error => console.error("Erro ao buscar ordens enviadas:", error));
+            .catch(error => {
+                console.error("Erro ao buscar ordens enviadas:", error);
+                logger.error("Erro ao buscar ordens enviadas:", error);
+            });
+
     };
 
     useEffect(() => {
